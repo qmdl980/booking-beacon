@@ -1,0 +1,9 @@
+.selected-type {
+  color: #100538;
+  border-bottom: 3px solid #100538;
+}
+
+.non-selected-type {
+  color: #777777;
+  border-bottom: 3px solid white;
+}

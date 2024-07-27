@@ -1,0 +1,39 @@
+.signup-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selected-type {
+  color: #100538;
+  border-bottom: 3px solid #100538;
+}
+
+.non-selected-type {
+  color: #777777;
+  border-bottom: 3px solid white;
+}
+
+.show-form {
+  display: block;
+}
+
+.hide-form {
+  display: none;
+}
+
+p {
+  margin: 0;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.password-check {
+  font-size: 10px;
+  color: grey;
+}
+
+.full-width-input {
+  width: 432px;
+}
