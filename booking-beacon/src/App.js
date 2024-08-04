@@ -9,7 +9,7 @@ import Main from "./pages/Main/Main";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <header className="header">
           <div>BOOKING BEACON</div>
         </header>
