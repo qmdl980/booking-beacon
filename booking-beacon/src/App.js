@@ -4,6 +4,7 @@ import "./App.css";
 import Signin from "./pages/Signin/Signin";
 import Signup from "./pages/Signup/Signup";
 import NotFound from "./pages/NotFound/NotFound";
+import Main from "./pages/Main/Main";
 
 function App() {
   return (
@@ -13,9 +14,9 @@ function App() {
           <div>BOOKING BEACON</div>
         </header>
         <Routes>
-          <Route path="/" element={<div />}></Route>
-          <Route path="/Signin" element={<Signin />}></Route>
-          <Route path="/Signup" element={<Signup />}></Route>
+          <Route path="/" element={<Main />}></Route>
+          <Route path="/login" element={<Signin />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>

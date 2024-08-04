@@ -139,7 +139,7 @@ function Signup() {
       .then((res) => {
         console.log("RESPONSE : " + res);
         alert("가입에 성공하셨습니다!");
-        navigate("/signin");
+        navigate("/login");
       })
       .catch((err) => {
         console.log("ERROR : " + err);
