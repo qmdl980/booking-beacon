@@ -7,6 +7,7 @@ export const SigninContainer = styled.div`
   justify-content: center;
   height: 100%;
   margin-top: 100px;
+  margin-bottom: 100px;
 `;
 
 export const SigninFormContainer = styled.div`
@@ -62,7 +63,7 @@ export const SigninTypeContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 16px 0 16px 0;
+  margin: 32px 0 16px 0;
 `;
 
 export const TypeTab = styled.div`

@@ -15,7 +15,7 @@
 }
 
 .show-form {
-  display: block;
+  display: flex;
 }
 
 .hide-form {
@@ -29,11 +29,50 @@ p {
   align-items: center;
 }
 
-.password-check {
-  font-size: 10px;
-  color: grey;
+.password-valid {
+  font-size: 12px;
+  color: #0c8a32;
+  font-weight: 700;
+}
+
+.password-invalid {
+  font-size: 12px;
+  color: rgb(202, 25, 25);
+  font-weight: 700;
 }
 
 .full-width-input {
   width: 432px;
+}
+
+.phone-number-select {
+  width: 80px;
+}
+
+.at-p {
+  width: 16px;
+}
+
+.hyp-p {
+  width: 6px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.chk-pwd-valid input {
+  border: 1px solid #0c8a32;
+}
+
+.chk-pwd-invalid input {
+  border: 1px solid rgb(202, 25, 25);
+}
+
+.password-valid-input input {
+  border: 1px solid #0c8a32;
+}
+
+.password-invalid-input input {
+  border: 1px solid rgb(202, 25, 25);
 }

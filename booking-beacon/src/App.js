@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <header className="header">
-          <div></div>
+          <div>BOOKING BEACON</div>
         </header>
         <Routes>
           <Route path="/" element={<div />}></Route>

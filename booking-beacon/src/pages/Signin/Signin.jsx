@@ -11,11 +11,16 @@ import {
 } from "./SigninStyle";
 import "./Signin.css";
 import { Link } from "react-router-dom";
+import { baseUrl } from "../../utils/config";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Signin() {
   const [userType, setUserType] = useState("A");
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const setUser = () => {
     setUserType("A");
@@ -34,18 +39,30 @@ function Signin() {
   };
 
   const onclickSigninButton = () => {
-    console.log(userType, userId, password);
+    axios
+      .post(`${baseUrl}/auth/login`, {
+        userEmail: userId,
+        password: password,
+        userType: userType === "A" ? "USER" : "PARTNER",
+      })
+      .then((res) => {
+        console.log("RESPONSE : " + res);
+        alert("로그인 성공");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log("ERROR : " + err);
+      });
   };
 
   return (
     <SigninContainer>
-      <div className="DD">로그인 화면입니다</div>
       <SigninTypeContainer>
         <TypeTab
           className={userType == "A" ? "selected-type" : "non-selected-type"}
           onClick={setUser}
         >
-          기본회원
+          개인회원
         </TypeTab>
         <TypeTab
           className={userType == "B" ? "selected-type" : "non-selected-type"}
