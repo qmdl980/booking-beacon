@@ -85,10 +85,10 @@ button {
   display: none;
 }
 
-.email-valid {
+.email-valid input {
   border: 1px solid #0c8a32;
 }
 
-.email-invalid {
+.email-invalid input {
   border: 1px solid rgb(202, 25, 25);
 }

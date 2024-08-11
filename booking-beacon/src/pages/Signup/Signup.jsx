@@ -114,7 +114,8 @@ function Signup() {
 
   const onclickCertiButton = () => {
     const fullUserId = `${userId}@${userEmail}`;
-
+    alert("인증코드를 발송했습니다");
+    setEmailVerifyVisable(true);
     axios
       .post(`${baseUrl}/auth/verify/email`, {
         email: fullUserId,
@@ -122,8 +123,6 @@ function Signup() {
       })
       .then((res) => {
         console.log("RESPONSE : " + res);
-        alert("인증코드를 발송했습니다");
-        setEmailVerifyVisable(true);
       })
       .catch((err) => {
         alert("ERROR : " + err);
@@ -134,11 +133,13 @@ function Signup() {
     const fullUserId = `${userId}@${userEmail}`;
 
     axios
-      .get(
-        `${baseUrl}/auth/verify/email?authCode=${emailVerifyCode}&email=${fullUserId}&userType=${
-          userType === "A" ? "USER" : "PARTNER"
-        }`
-      )
+      .get(`${baseUrl}/auth/verify/email`, {
+        params: {
+          authCode: emailVerifyCode,
+          email: fullUserId,
+          userType: userType === "A" ? "USER" : "PARTNER",
+        },
+      })
       .then((res) => {
         alert(res);
         setEmailValid(true);
@@ -152,12 +153,12 @@ function Signup() {
     let reqUrl = "";
     let reqBody = {};
 
-    if (chkPassword != "true") {
+    if (chkPwdValid != "true") {
       alert("비밀번호를 확인해주세요");
       return;
     }
 
-    if (emailValid != "true") {
+    if (emailValid != true) {
       alert("이메일 인증을 완료해주세요");
       return;
     }
@@ -241,13 +242,16 @@ function Signup() {
             }
           >
             <SignupInputWrapper>
-              <SignupInput
-                placeholder=""
-                style={{ width: "372px" }}
-                value={emailVerifyCode}
-                onChange={handleEmailVerifyCode}
+              <div
                 className={emailValid == true ? "email-valid" : "email-invalid"}
-              ></SignupInput>
+              >
+                <SignupInput
+                  placeholder=""
+                  style={{ width: "372px" }}
+                  value={emailVerifyCode}
+                  onChange={handleEmailVerifyCode}
+                ></SignupInput>
+              </div>
             </SignupInputWrapper>
             <CertiButton onClick={onclickVerifyButton}>확인</CertiButton>
           </div>
