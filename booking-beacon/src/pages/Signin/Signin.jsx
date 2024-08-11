@@ -14,8 +14,9 @@ import { Link } from "react-router-dom";
 import { baseUrl } from "../../utils/config";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { axiosAuth } from "../../utils/apiUtil";
 
-function Signin() {
+function Signin({ setIsLogin, setUserName }) {
   const [userType, setUserType] = useState("A");
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
@@ -39,16 +40,29 @@ function Signin() {
   };
 
   const onclickSigninButton = () => {
-    axios
+    axiosAuth
       .post(`${baseUrl}/auth/login`, {
         userEmail: userId,
         password: password,
         userType: userType === "A" ? "USER" : "PARTNER",
       })
       .then((res) => {
-        console.log("RESPONSE : " + res);
-        alert("로그인 성공");
-        navigate("/");
+        localStorage.setItem("accessToken", res.data.accessToken);
+        localStorage.setItem("refreshToken", res.data.refreshToken);
+
+        const reqUrl = userType === "A" ? "user" : "partner";
+        axiosAuth
+          .get(`${baseUrl}/auth/${reqUrl}`)
+          .then((res) => {
+            setUserName(res.data.userName);
+            console.log("RESPONSE : " + res);
+            alert("로그인 성공");
+            setIsLogin(true);
+            navigate("/");
+          })
+          .catch((err) => {
+            alert("ERROR : " + err);
+          });
       })
       .catch((err) => {
         console.log("ERROR : " + err);

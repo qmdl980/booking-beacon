@@ -7,9 +7,7 @@ import { useNavigate } from "react-router-dom";
 function Main() {
   return (
     <div>
-      <Link to={"/login"}>로그인</Link>
-      <p></p>
-      <Link to={"/signup"}>회원가입</Link>
+      <p>BOOKING-BEACON 메인 페이지입니다</p>
     </div>
   );
 }
