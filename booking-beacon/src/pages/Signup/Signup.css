@@ -76,3 +76,19 @@ button {
 .password-invalid-input input {
   border: 1px solid rgb(202, 25, 25);
 }
+
+.email-verify-visable {
+  display: flex;
+}
+
+.email-verify-nonvisable {
+  display: none;
+}
+
+.email-valid {
+  border: 1px solid #0c8a32;
+}
+
+.email-invalid {
+  border: 1px solid rgb(202, 25, 25);
+}

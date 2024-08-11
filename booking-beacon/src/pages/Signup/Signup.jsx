@@ -29,6 +29,9 @@ function Signup() {
   const [phoneNumber1, setPhoneNumber1] = useState("010");
   const [phoneNumber2, setPhoneNumber2] = useState("");
   const [phoneNumber3, setPhoneNumber3] = useState("");
+  const [emailVerifyVisable, setEmailVerifyVisable] = useState(false);
+  const [emailVerifyCode, setEmailVerifyCode] = useState("");
+  const [emailValid, setEmailValid] = useState(false);
 
   const navigate = useNavigate();
 
@@ -105,14 +108,59 @@ function Signup() {
     setPhoneNumber3(event.target.value);
   };
 
+  const handleEmailVerifyCode = (event) => {
+    setEmailVerifyCode(event.target.value);
+  };
+
   const onclickCertiButton = () => {
     const fullUserId = `${userId}@${userEmail}`;
-    console.log(fullUserId);
+
+    axios
+      .post(`${baseUrl}/auth/verify/email`, {
+        email: fullUserId,
+        userType: userType === "A" ? "USER" : "PARTNER",
+      })
+      .then((res) => {
+        console.log("RESPONSE : " + res);
+        alert("인증코드를 발송했습니다");
+        setEmailVerifyVisable(true);
+      })
+      .catch((err) => {
+        alert("ERROR : " + err);
+      });
+  };
+
+  const onclickVerifyButton = () => {
+    const fullUserId = `${userId}@${userEmail}`;
+
+    axios
+      .get(
+        `${baseUrl}/auth/verify/email?authCode=${emailVerifyCode}&email=${fullUserId}&userType=${
+          userType === "A" ? "USER" : "PARTNER"
+        }`
+      )
+      .then((res) => {
+        alert(res);
+        setEmailValid(true);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   const onclickSignupButton = () => {
     let reqUrl = "";
     let reqBody = {};
+
+    if (chkPassword != "true") {
+      alert("비밀번호를 확인해주세요");
+      return;
+    }
+
+    if (emailValid != "true") {
+      alert("이메일 인증을 완료해주세요");
+      return;
+    }
 
     if (userType === "A") {
       reqUrl = "join";
@@ -185,6 +233,24 @@ function Signup() {
             </SignupInputWrapper>
             <CertiButton onClick={onclickCertiButton}>인증</CertiButton>
           </EmailInputWrapper>
+          <div
+            className={
+              emailVerifyVisable == true
+                ? "email-verify-visable"
+                : "email-verify-nonvisable"
+            }
+          >
+            <SignupInputWrapper>
+              <SignupInput
+                placeholder=""
+                style={{ width: "372px" }}
+                value={emailVerifyCode}
+                onChange={handleEmailVerifyCode}
+                className={emailValid == true ? "email-valid" : "email-invalid"}
+              ></SignupInput>
+            </SignupInputWrapper>
+            <CertiButton onClick={onclickVerifyButton}>확인</CertiButton>
+          </div>
           <SignupInputWrapper>
             <SignupInputLabel>비밀번호</SignupInputLabel>
             <div
@@ -293,14 +359,14 @@ function Signup() {
               <p className="hyp-p">-</p>
               <SignupInput
                 type="number"
-                style={{ width: "151px" }}
+                style={{ width: "149px" }}
                 value={phoneNumber2}
                 onChange={handlePhoneNumber2Input}
               ></SignupInput>
               <p className="hyp-p">-</p>
               <SignupInput
                 type="number"
-                style={{ width: "151px" }}
+                style={{ width: "149px" }}
                 value={phoneNumber3}
                 onChange={handlePhoneNumber3Input}
               ></SignupInput>
